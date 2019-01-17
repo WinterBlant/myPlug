@@ -6,23 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Author: Allan de Queiroz
- * Date:   07/05/17
- */
 class ImagesHandler {
 
-    private MimetypesFileTypeMap typeMap;
+    private MimetypesFileTypeMap types;
 
     ImagesHandler() {
-        typeMap = new MimetypesFileTypeMap();
+        types = new MimetypesFileTypeMap();
     }
 
-    /**
-     * @param folder folder to search for images
-     * @return random image or null
-     */
-    String getRandomImage(String folder) {
+    String getRandomImage(String folder, String lastImage) {
         if (folder.isEmpty()) {
             return null;
         }
@@ -33,8 +25,12 @@ class ImagesHandler {
             return null;
         }
         Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(images.size());
-        return images.get(index);
+        String image;
+        do {
+            int index = randomGenerator.nextInt(images.size());
+            image = images.get(index);
+        } while (lastImage != null && lastImage.split(",")[0].equals(image));
+        return image;
     }
 
     private void collectImages(List<String> images, String folder) {
@@ -60,8 +56,8 @@ class ImagesHandler {
     }
 
     private boolean isImage(File file) {
-        String[] parts = typeMap.getContentType(file).split("/");
-        return parts.length != 0 && parts[0].equals("image");
+        String[] parts = types.getContentType(file).split("/");
+        return parts.length != 0 && "image".equals(parts[0]);
     }
 
 }

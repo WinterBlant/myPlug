@@ -3,7 +3,6 @@ package myPlug;
 import myPlug.ui.Settings;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.wm.impl.IdeBackgroundUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.*;
 
@@ -21,12 +20,12 @@ public class BackgroundService {
             stop();
         }
         RandomBackgroundTask task = new RandomBackgroundTask();
-        executor = new ScheduledThreadPoolExecutor(1, new MyThreadFactory("RandomBackgroundTask"));
+        executor = Executors.newSingleThreadScheduledExecutor();
         try {
             int delay = prop.isValueSet(IdeBackgroundUtil.EDITOR_PROP)
                     ? interval
                     : 0;
-            executor.scheduleAtFixedRate(task, delay, interval, TimeUnit.MINUTES);
+            executor.scheduleAtFixedRate(task, delay, interval, TimeUnit.SECONDS);
         } catch (RejectedExecutionException e) {
             stop();
         }
@@ -43,25 +42,4 @@ public class BackgroundService {
         stop();
         start();
     }
-
-    public static class MyThreadFactory implements ThreadFactory {
-
-        private int counter;
-
-        private String name;
-
-        MyThreadFactory(String name) {
-            counter = 0;
-            this.name = name;
-        }
-
-        @Override
-        public Thread newThread(@NotNull Runnable run) {
-            Thread t = new Thread(run, name + "-Thread-" + counter);
-            counter++;
-            return t;
-        }
-
-    }
-
 }

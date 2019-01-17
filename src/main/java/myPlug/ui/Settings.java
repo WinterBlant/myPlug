@@ -25,9 +25,6 @@ public class Settings implements Configurable {
     private JSpinner intervalSpinner;
     private JCheckBox autoChangeCheckBox;
 
-    @SuppressWarnings("unused")
-    private JLabel measurement;
-
     @Nls
     @Override
     public String getDisplayName() {

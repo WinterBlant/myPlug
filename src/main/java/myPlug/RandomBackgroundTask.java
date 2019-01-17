@@ -5,10 +5,6 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.wm.impl.IdeBackgroundUtil;
 import java.io.File;
 
-/**
- * Author: Allan de Queiroz
- * Date:   07/05/17
- */
 public class RandomBackgroundTask implements Runnable {
 
     private ImagesHandler imagesHandler;
@@ -30,7 +26,8 @@ public class RandomBackgroundTask implements Runnable {
             NotificationCenter.notice("Image folder not set");
             return;
         }
-        String image = imagesHandler.getRandomImage(folder);
+        String lastImage = prop.getValue(IdeBackgroundUtil.EDITOR_PROP);
+        String image = imagesHandler.getRandomImage(folder, lastImage);
         if (image == null) {
             NotificationCenter.notice("No image found");
             return;
