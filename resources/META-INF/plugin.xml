@@ -1,37 +1,23 @@
 <idea-plugin>
     <id>andr.myPlug</id>
-    <name>Background Image Plus</name>
-    <version>1.2.1</version>
-    <vendor email="lachlan.krautz@gmail.com" url="http://github.com/lachlankrautz">Lachlan Krautz</vendor>
+    <name>Bckgrd Images</name>
+    <version>0.0.1</version>
+    <vendor email="dummy" url="dummy"></vendor>
 
-    <description><![CDATA[
-      Set the editor background to a random picture from a folder.<br>
-    ]]></description>
-
-    <change-notes><![CDATA[
-      Added settings page
-      Added menu items
-      Well and some other shit
-    ]]>
-    </change-notes>
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <description>This is a plugin used to change background picture</description>
     <idea-version since-build="162"/>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
 
-    <!-- uncomment to enable plugin in all products -->
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable groupId="appearance" groupWeight="20" id="background.image.plus"
-                                 displayName="Background Image Plus"
+                                 displayName="Background Images"
                                  instance="myPlug.ui.Settings"/>
     </extensions>
 
     <actions>
-        <group id="backgroundImagePlus" text="Background Image Plus" description="Background Image Plus">
+        <group id="backgroundImagePlus" text="Background Images" description="Changing background images">
             <add-to-group group-id="ViewMenu" anchor="before" relative-to-action="ToggleFullScreenGroup"/>
             <separator/>
             <action id="setBackgroundImage" class="org.intellij.images.editor.actions.SetBackgroundImageAction"
